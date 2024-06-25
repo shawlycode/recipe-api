@@ -16,6 +16,7 @@ recipeRouter.patch('/recipes/:id', (req, res) => {
 
   res.json(`Recipe with ID ${req.params.id} updated`)
 })
+// deleting idem with id
 recipeRouter.delete('/recipes/:id', (req, res) => {
   res.json(`Recipes with ID ${req.params.id} deleted successfully`)
 })
