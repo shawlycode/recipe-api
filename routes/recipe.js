@@ -1,15 +1,24 @@
 import { Router } from "express";
+import { RecipeModel } from "../models/recipe.js";
 //Create router
 
 const recipeRouter = Router();
 
 // define all routes
-recipeRouter.get('/recipes', (req, res) => {
+recipeRouter.get('/', (req, res) => {
   res.json('All recipes')
 })
+//defining an endpoint to get a single recipe
+recipeRouter.get('/recipes/:id', (req, res) => {
+  res.json(`Recipes with ID ${req.params.id} received`)
+})
+recipeRouter.post('/recipes', async (req, res) => {
+  //allowing users to add items to body using req.body
+  //add recipe to db using await
+  await RecipeModel.create(req.body);
+  //return response
 
-recipeRouter.post('/recipes', (req, res) => {
-  res.json('Recipe Added ')
+  res.json('Recipe Added Successfully')
 })
 recipeRouter.patch('/recipes/:id', (req, res) => {
   // using the params to deleted an item with id
