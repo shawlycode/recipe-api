@@ -41,7 +41,7 @@ export const postRecipes = async (req, res, next) => {
 }
 
 
-//update Recipe
+//update /patch Recipe
 
 export const updateRecipe = (req, res) => {
   // using the params to deleted an item with id
@@ -66,3 +66,5 @@ export const deleteRecipe = async (req, res, next) => {
 export const deleteRecipeId = (req, res) => {
   res.json(`Recipes with ID ${req.params.id} received`)
 }
+
+//implement the patch of the favorite using the patch.
