@@ -12,6 +12,9 @@ export const getRecipes = async (req, res, next) => {
     next(error);
   }
 }
+
+
+
 export const getRecipeByID = async (req, res, next) => {
   try {
     //allowing users to add items to body using req.body
@@ -68,3 +71,24 @@ export const deleteRecipeId = (req, res) => {
 }
 
 //implement the patch of the favorite using the patch.
+export const patchRecipe = async (req, res, next) => {
+  try {
+    //update recipe by ID
+    const updatedRecipe = await RecipeModel.findByIdAndUpdate(req.params.id, req.body)
+    //return response
+    res.json(updatedRecipe)
+  } catch (error) {
+    next(error)
+  }
+}
+
+//get recipe
+export const getRecipe = async (req, res, next) => {
+  try {
+    const get_recipes = await RecipeModel.findById(req.params.id, req.body)
+    res.json(req.params, get_recipes)
+  } catch (error) {
+    next(error)
+  }
+
+}

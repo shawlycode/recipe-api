@@ -1,5 +1,6 @@
 import { Schema, model, Types } from "mongoose";
-import normalize from "normalize-mongoose"
+// import normalize from "normalize-mongoose"
+import { toJSON } from '@reis/mongoose-to-json'
 
 
 const recipeSchema = new Schema({
@@ -17,6 +18,6 @@ const recipeSchema = new Schema({
   timestamps: true
 })
 
-recipeSchema.plugin(normalize)
+recipeSchema.plugin(toJSON)
 
 export const RecipeModel = model('Recipe', recipeSchema);
