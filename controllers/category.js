@@ -2,8 +2,15 @@ import { categoryModel } from '../models/category.js';
 
 export const getCategories = async (req, res, next) => {
   try {
+    //get query params
+    const { limit, skip, filter, fields } = req.query
     // get all categories from db
-    const allCategories = await categoryModel.find();
+    const allCategories = await categoryModel
+      .find(JSON.parse(filter))
+      .select(JSON.parse(fields))
+      .limit(limit)
+      .skip(skip)
+
     //Return response
     res.status(200).json(allCategories);
   } catch (error) {
@@ -21,7 +28,7 @@ export const postCategory = async (req, res, next) => {
     const newCategory = await categoryModel.create({
       //using the spread operator
       ...req.body,
-      image: req.file.filename,
+      image: req.file.filename
     });
     res.status(201).json(newCategory);
   } catch (error) {

@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { getCategories, postCategory } from "../controllers/category.js";
 import multer from "multer";
-
+import { remoteUploads } from "../middlewares/uploads.js";
+import { checkUserSession } from "../middlewares/auth.js";
 
 
 //create upload middleware(avoid app.use)
-const upload = multer({ dest: 'uploads/' })
+// const upload = multer({ dest: 'uploads/' })
 //create router
 const categoryRouter = Router();
 
@@ -14,7 +15,8 @@ const categoryRouter = Router();
 categoryRouter.get('/categories', getCategories);
 
 //applying multer where you want to do the upload
-categoryRouter.post('/categories', upload.single('image'), postCategory);
-//export router
+categoryRouter.post('/categories', remoteUploads.single('image'), checkUserSession, postCategory);
 
+
+//export router
 export default categoryRouter;
